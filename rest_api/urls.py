@@ -1,0 +1,33 @@
+from django.urls import path
+from .import views
+from .views import *
+from django.views.decorators.csrf import csrf_exempt
+urlpatterns=[
+    path('users/signup/',csrf_exempt(SignUpView.as_view()),name='user-signup'),
+    path('users/signin/',csrf_exempt(SignInView.as_view()),name='user-login'),
+    path('users/<int:pk>/', UserProfile.as_view(), name='user-profile'),
+    path('users/reset/', UserProfile.as_view(), name='user-profile'),
+    path('users/resetpassword/',csrf_exempt(ResetPasswordView.as_view()),name='user-password-reset'),
+    path('movies/',csrf_exempt(AddMovieAPIView.as_view()),name='add-movie'),
+    path('movies/del/<int:movie_id>/',AddMovieAPIView.as_view(),name='delete-movie'),
+    
+    path('movies/list/',csrf_exempt(GetMovieViews.as_view()),name='list-movie'),
+    path('movies/all/',csrf_exempt(MoviesAPI.as_view()),name='list-movie'),
+    path('movies/genres/', GenreList.as_view(), name='genre-list'),
+    path('movies/language/', UniqueLanguagesAPI.as_view(), name='unique-languages'),
+    path('movie/<int:id>/', GetMovieDetailsViews.as_view(), name='movie-detail'),
+    path('movies/<int:movie_id>/add_theater/', TheaterCreateView.as_view(), name='add-theater-to-movie'),
+    path('movies/<int:theater_id>/theater/', TheaterCreateView.as_view(), name='delete-update-theater'),
+    path('seats/', SeatView.as_view(), name='Add-seat-to-theater'),
+    path('seats/<int:id>/', SeatView.as_view(), name='update-seat-no'),
+    path('movies/theater/<int:id>/', TheaterSeats.as_view(), name='find-seat-to-the-theater'),
+    path('movies/seatbooking/', BookingView.as_view(), name='Booking-to-theater'),
+    path('movies/seatbooking/<int:id>', BookingView.as_view(), name='Booking-to-theater'),
+
+    path('movies/allseatbooking/', BookingViewAdmin.as_view(), name='Booking-to-theater'),
+    path('theater/<int:movie_id>/',TheaterView.as_view(), name='Search-theater-movie_id' ),
+    path('theater/',TheaterView.as_view(), name='Search-theater-movie_id' ),
+    path('theater/details/<int:movie_id>/',TheaterViewMD.as_view(), name='Search-theater-movie_id' ),
+
+
+]
